@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}My teams{% endblock %}
+
+{% block content %}
+<h1>My teams</h1>
+<table>
+    {% for team in teams %}
+    <tr>
+        <td>{{ team.team_name }}</td>
+        <td><a href="/teams/edit/{{ team.id }}/">Edit</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3><a href="/teams/create/">Create new team</a></h3>
+
+{% endblock %}

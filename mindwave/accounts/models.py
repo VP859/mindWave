@@ -18,6 +18,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    teams = models.ForeignKey('teams.Team', on_delete=models.CASCADE, blank=True, null=True)
 
     roles = (
         ('student', 'Student'),
@@ -30,5 +32,5 @@ class Profile(models.Model):
     rank = models.CharField(choices=ranks, max_length=30, default='IRON')
 
     def __str__(self):
-        return f"{self.user.username}'s profile"
+        return self.user.username
         
