@@ -7,7 +7,7 @@
     <form method="POST">
         {% csrf_token %}
         <!-- {{ form.as_p }} -->
-          <input type="text" name="teamName"> <br>
+          <input type="text" name="teamName" value="{{team.team_name}}"> <br>
 
         <select name="selectUser" id="" multiple>
         {% for user in users %}

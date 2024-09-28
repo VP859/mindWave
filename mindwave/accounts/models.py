@@ -17,9 +17,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    
-    teams = models.ForeignKey('teams.Team', on_delete=models.CASCADE, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)    
 
     roles = (
         ('student', 'Student'),
