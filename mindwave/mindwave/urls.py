@@ -20,6 +20,7 @@ from accounts import views as accounts_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('', include('base.urls')),
     
     # user
     path('register/', accounts_views.register, name="register"),

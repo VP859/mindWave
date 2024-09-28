@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # local apps
     
     "accounts.apps.AccountsConfig",
+    'base.apps.BaseConfig',
     
     
     # additional apps
@@ -65,7 +66,7 @@ ROOT_URLCONF = "mindwave.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [ BASE_DIR / "templates" ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
