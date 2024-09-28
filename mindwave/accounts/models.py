@@ -16,6 +16,7 @@ class Profile(models.Model):
             )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    age = models.IntegerField(default=25)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)    
 

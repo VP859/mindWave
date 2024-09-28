@@ -157,7 +157,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 # user
 login_redirect_url = '/'
 logout_redirect_url = '/'
-register_redirect_url = '/login/'
+register_redirect_url = '/'
 
 MEDIA_URL = '/profile_pictures/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'profile_pictures')

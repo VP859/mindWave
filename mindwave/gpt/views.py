@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from dotenv import load_dotenv
-import os
 import google.generativeai as genai
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from . import forms
+from django.utils.safestring import mark_safe
 
 
 @login_required
@@ -28,7 +27,7 @@ def get_response(request):
     model_name="gemini-1.0-pro",
     generation_config=generation_config,
     # safety_settings = Adjust safety settings
-    # See https://ai.google.dev/gemini-api/docs/safety-settings
+    # See https://ai.google.dev/gemini-api/docs/safety-s    ettings
     )
 
     chat_session = model.start_chat(
@@ -40,10 +39,11 @@ def get_response(request):
     if request.method == "POST":
         form = forms.GPTRequestForm(request.POST)
         if form.is_valid():
-            prompt = form.cleaned_data["prompt"]
+            prompt = f'{form.cleaned_data["prompt"]} for user at age {request.user.profile.age}'
             response = chat_session.send_message(prompt)
             response = response.text
-            return render(request, "gpt/response.html", {"response": response})
+            formatted_response = mark_safe(response.replace("**", " <b> <br>").replace("***", " <i> <br>").replace("****", " <u> <br>"))
+            return render(request, "gpt/response.html", {"response": formatted_response})
     else:
         form = forms.GPTRequestForm()
     
