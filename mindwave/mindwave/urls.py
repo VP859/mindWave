@@ -29,4 +29,8 @@ urlpatterns = [
     path('accounts/profile/', accounts_views.home, name="home"),
     path('set-avatar/', accounts_views.setAvatar, name="setAvatar"),
     path('', include('django.contrib.auth.urls')), 
+
+    # teams
+    path('teams/', include('teams.urls')),
+    
 ]
