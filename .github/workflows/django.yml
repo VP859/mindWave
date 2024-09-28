@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements.txt
     - name: use secrets
       run: |
-          echo {{ secrets.API_KEY }} > .env
+          echo "{{ secrets.API_KEY }}" > .env
     - name: Run Tests
       run: |
         python ./mindwave/manage.py test
