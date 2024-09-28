@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    Ranks:
+    <ol>
+        {% for key, value in ranks.items %}
+            <h4>{{key}}</h4>
+            <ol>
+                {% for user in value %}
+                    <li>{{user.user.username}}: {{user.points}}</li>
+                {% endfor%}
+            </ol>
+        {% endfor %}
+    </ol>
+
+    Subjects: <br>
+    {% for subject, info in quizes.items %}
+        <h3>{{subject}}</h3>
+        <ol>
+            {% for user, points in info.items %}
+                <li>{{user}} - {{points}}</li>
+            {% endfor %}
+        </ol>
+        <br>
+    {% endfor %}
+
+{% endblock %}
