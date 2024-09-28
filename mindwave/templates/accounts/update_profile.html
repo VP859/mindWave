@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edit Profile Info
+{% endblock title %}
+
+{% block content %}
+<h2>Edit Profile</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <h3>User Information</h3>
+    {{ user_form.as_p }}
+
+    {{ profile_form.as_p }}
+
+    <button type="submit" class="btn btn-success">Save changes</button>
+    <a href="{% url 'profile' %}" class="btn btn-danger">Cancel</a>
+</form>
+
+{% endblock %}

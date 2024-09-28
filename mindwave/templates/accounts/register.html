@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form method="post" class="content-section">
+        {% csrf_token %}
+        <legend class=" mb-3"><h1>Zarejestruj się</h1></legend>
+        {% render_field form.firstname  placeholder="Imię" class="register_firstname" id="" %}
+        {% render_field form.lastname  placeholder="Nazwisko" class="register_lastname" id="" %}
+        {% render_field form.username  placeholder="Nazwa" class="register_username" id="" %}
+        {% render_field form.email  placeholder="Email" class="register_email" id="" %}
+        {% render_field form.password1  placeholder="Hasło" class="register_password1" id="" %}
+        {% render_field form.password2  placeholder="Powtórz Hasło" class="register_password2" id="" %} <br>
+        <button name="create" type="submit" class="btn btn-primary" style="position: relative; left: 46.5%; margin-top: 10px;">Zarejestruj</button>
+    </form>
+{% endblock %}

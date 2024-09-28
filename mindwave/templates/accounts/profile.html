@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <div class="container">
+        <h1>Profile</h1>
+        <table class="table">
+            <tr>
+                <td>Username:</td>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td>{{ user.first_name }} {{ user.last_name }}</td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                {% if user.profile.profile_picture %}
+                    <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
+                {% else %}
+                    <img src="/static/img/profile_pic.png" alt="Default Profile Picture">
+                {% endif %}
+            </tr>
+            <tr id="controls">
+                <td colspan="2"><a class="btn btn-primary" href="/profile/edit/">Edit</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <br>
+
+    <form method="POST" id="avatarForm">
+        {% csrf_token %}
+        <div class="avatars">
+            {% for image in images %}
+                <div class="avatar">
+                    <img src="/static/img/avatars/{{image}}" alt="" width="100px"> <br>
+                    <button onclick="setAvatar('{{image}}')">Select avatar</button>
+                </div>
+            {% endfor %}
+        </div>    
+        <input type="hidden" id="imgInfo" value="">
+    </form>
+
+    <script>
+        function setAvatar(img){
+            console.log(img)
+            $('#imgInfo').val(img)
+
+            // $('#avatarForm').submit()
+        }
+
+        $(document).on('submit', '#avatarForm', function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/set-avatar/',
+                data: {
+                    imgInfo: $('#imgInfo').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data){
+                    // ('h5').html(data)
+                    console.log('success')
+                }
+            })
+        })
+    </script>
+
+
+{% endblock %}
