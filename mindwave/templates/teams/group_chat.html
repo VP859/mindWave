@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <div id="messages">
+        {% for message in team.get_messages %}
+            <div id="message{{message.pk}}">
+                {{message.user}} <br>
+                {{message.text}} <br>
+                {{message.time_sent}} <br>
+                <button onclick="replyTo('{{message.pk}}')">Reply</button>
+                <br>
+                
+                <p style="margin-left: 15px;">
+                    {% for answer in message.get_answers %}
+                        {{answer.user}} <br>
+                        {{answer.text}} <br>
+                        {{answer.time_sent}} <br> <br>
+                    {% endfor %}
+                </p>
+                
+                <div id="reply{{message.pk}}">
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    
+    <form method="POST" id="msgForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        <textarea name="msg" id="msg"></textarea> <br>
+        <input type="file" name="file" id="file"> <br>
+        <input type="submit" value="Send">
+    </form>
+
+
+    <script>
+        var message_id = ''
+        function replyTo(msg){
+            globalThis.message_id = msg
+        }
+
+
+        $(document).on('submit', '#msgForm', function(e){
+            e.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: '/teams/groups/<str:team_id>/send-message/',
+                mimeType:'multipart/form-data',
+                data: {
+                    messageId: message_id,
+                    msg: $('#msg').val(),
+                    team_id: '{{team.pk}}',
+                    file: $('#file').files,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function(data){
+                    console.log('success')
+                    if(message_id != '')
+                        $('#reply'+message_id).html($('#reply'+message_id).html() + data)
+                    else
+                        $('#messages').html($('#messages').html() + data)
+                }
+            },)
+            
+            $('#msgForm')[0].reset()
+        })
+    </script>
+
+{% endblock %}

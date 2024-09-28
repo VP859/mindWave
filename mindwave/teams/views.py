@@ -1,9 +1,10 @@
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from accounts.models import Profile
-from .models import Team
+from .models import AnswerToMessage, Team, Message
 from .forms import Create_team_form, Edit_team_form
 
 
@@ -37,7 +38,7 @@ def create_team(request):
     }
     
     if request.method == 'POST':
-        print(f'user {request.POST.getlist('selectUser')}')
+        # print(f'user {request.POST.getlist('selectUser')}')
         team = Team.objects.create(team_name=request.POST.get('teamName'))
         members = request.POST.getlist('selectUser')
         for member in members:
@@ -59,7 +60,7 @@ def edit_team(request, team_id):
         for member in members:
             team.members.add(member)
         team.save()
-        return redirect('teams:my_teams')
+        return redirect('my_teams')
     
     context = {
         'team': team,
@@ -67,3 +68,44 @@ def edit_team(request, team_id):
     }
     
     return render(request, 'teams/edit_team.html', context)
+
+def groups(request):
+    teams = Team.objects.filter(members=request.user.profile.pk)
+
+    context = {
+        'teams': teams,
+    }
+    return render(request, 'teams/groups.html', context)
+
+def groupChat(request, team_id):
+    team = Team.objects.get(pk=team_id)
+    
+    
+    
+    context = {
+        'team': team,
+    }
+
+    return render(request, 'teams/group_chat.html', context)
+
+def sendMessage(request, team_id):
+    msgId = request.POST['messageId']
+    msg = request.POST['msg']
+    teamID = request.POST['team_id']
+    print(request.FILES.getlist('file'))
+
+    if msgId != '':
+        answer = AnswerToMessage.objects.create(
+            user = request.user.profile,
+            message = Message.objects.get(pk=msgId),
+            team = Team.objects.get(pk=teamID),
+            text = msg,
+        )
+        return HttpResponse(render(request, 'teams/reply.html', {'answer': answer}))
+    else:
+        message = Message.objects.create(
+            user = request.user.profile,
+            team = Team.objects.get(pk=teamID),
+            text = msg,
+        )
+        return HttpResponse(render(request, 'teams/newMessage.html', {'message': message}))

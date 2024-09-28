@@ -159,16 +159,6 @@ login_redirect_url = '/'
 logout_redirect_url = '/'
 register_redirect_url = '/'
 
-MEDIA_URL = '/profile_pictures/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'profile_pictures')
 
-
-
-API_KEY = config('API_KEY', default=None)
-
-if not API_KEY:
-    raise ValueError("API key not found. Make sure it's set in the .env file.")
-
-
-if not API_KEY:
-    raise ValueError("API key not found. Please check your .env file.")
+MEDIA_URL = '/meida/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

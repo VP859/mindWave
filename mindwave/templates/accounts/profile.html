@@ -35,27 +35,29 @@
 
     <br>
 
+    <!--
+        
     <form method="POST" id="avatarForm">
         {% csrf_token %}
         <div class="avatars">
             {% for image in images %}
-                <div class="avatar">
-                    <img src="/static/img/avatars/{{image}}" alt="" width="100px"> <br>
-                    <button onclick="setAvatar('{{image}}')">Select avatar</button>
-                </div>
+            <div class="avatar">
+                <img src="/profile_pictures/{{image}}" alt="" width="100px"> <br>
+                <button onclick="setAvatar('{{image}}')">Select avatar</button>
+            </div>
             {% endfor %}
         </div>    
         <input type="hidden" id="imgInfo" value="">
     </form>
-
+    
     <script>
         function setAvatar(img){
             console.log(img)
             $('#imgInfo').val(img)
-
+            
             // $('#avatarForm').submit()
         }
-
+        
         $(document).on('submit', '#avatarForm', function(e){
             e.preventDefault();
             $.ajax({
@@ -72,6 +74,7 @@
             })
         })
     </script>
-
-
-{% endblock %}
+    -->
+    
+    
+    {% endblock %}

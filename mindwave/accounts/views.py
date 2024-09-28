@@ -23,8 +23,10 @@ import os
 
 @login_required
 def profile(request):
-    path = 'static/img/avatars'
+    path = 'profile_pictures/'
     img_list = os.listdir(path)
+
+    print(f'AAAAAAAa {img_list}')
 
     context = {
         "profile": request.user.profile,

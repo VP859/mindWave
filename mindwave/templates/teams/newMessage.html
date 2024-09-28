@@ -1,0 +1,19 @@
+<div id="message{{message.pk}}">
+    {{message.user}} <br>
+    {{message.text}} <br>
+    {{message.time_sent}} <br>
+    <button onclick="replyTo('{{message.pk}}')">Reply</button>
+    <br>
+    
+    <p style="margin-left: 15px;">
+        {% for answer in message.get_answers %}
+            {{answer.user}} <br>
+            {{answer.text}} <br>
+            {{answer.time_sent}} <br> <br>
+        {% endfor %}
+    </p>
+    
+    <div id="reply">
+
+    </div>
+</div>
