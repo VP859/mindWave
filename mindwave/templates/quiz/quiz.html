@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <h1>Quiz - {{quiz.subject}} - {{quiz.name}}</h1>        
+    <p id="timeLeft">Time left: {{quiz.time|floatformat:2}}</p>
+
+    <button onclick="nextQuest(true), start()" id="startBtn">Start</button>
+                
+    {% for question in quiz.get_questions %}
+        <div class="questionDiv">
+            Zadanie otwarte: {{question.openTask}} <br>
+            {{question.text}} <br>
+
+            {% for answer in question.get_answers %}
+                <input type="radio" name="question{{question.pk}}" value="{{answer.correct}}"> {{answer.text}} <br>
+            {% endfor %}
+            <br>
+
+            {% if question.openTask %}
+                <input type="text" name="openTask{{question.pk}}" id="openTask{{question.pk}}">
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <button onclick="nextQuest(false)" id="nextBtn">Next</button>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <form action="{% url 'addScore' %}" method="POST" id="scoreForm">
+        {% csrf_token %}
+        <input type="hidden" id="next" name="next" value="/quiz/{{quiz.pk}}/">
+        <input type="hidden" id="quiz" name="quiz" value="{{quiz.pk}}">
+        <input type="hidden" id="score" name="score" value="">
+        <input type="submit" value="CHECK" id="checkAns" onclick="checkAnswers()">
+    </form>
+    <!-- <button onclick="checkAnswers()" id="checkAns">CLICK</button> -->
+
+    <script>
+        var questionsAndAnswers = {}
+        var openTasks = []
+    </script>
+
+    {% for question in quiz.get_questions %}
+    <script>
+        questionsAndAnswers['question{{question.pk}}'] = new Array()
+    </script>  
+        {% for answer in question.get_answers %}
+            <script>
+                questionsAndAnswers['question{{question.pk}}'].push('{{answer.text}}')
+            </script>
+        {% endfor %}
+
+        {% if question.openTask %}
+            <script>
+                openTasks.push('openTask{{question.pk}}')
+            </script>
+        {% endif %}
+    {% endfor %}
+
+    <br> <br>
+
+
+
+    <script>
+        const questionDivs = document.getElementsByClassName('questionDiv')
+        // var quizTime = parseFloat('{{quiz.time}}')*60
+        var quizTime = 30
+        var timePerQuestionInSeconds = quizTime / (Object.keys(questionsAndAnswers).length + openTasks.length)
+        console.log(timePerQuestionInSeconds)
+        console.log((Object.keys(questionsAndAnswers).length + openTasks.length))
+
+
+        var activeQuestion = 0
+        
+        for(var i=0; i<questionDivs.length; i++){
+            questionDivs[i].style.display = 'none'
+        }
+        // questionDivs[activeQuestion].style.display = 'block'
+
+        var time=0
+        var t
+        function start(){
+            t = setInterval(()=>{
+                time++
+                
+                var minutes = parseInt((quizTime - time)/60) < 10 ? '0' + parseInt((quizTime - time)/60) : parseInt((quizTime - time)/60)
+                var seconds = parseInt((quizTime - time)%60) < 10 ? '0' + parseInt((quizTime - time)%60) : parseInt((quizTime - time)%60)
+
+                document.getElementById('timeLeft').innerHTML = `Time left: ${minutes}.${seconds}`
+
+                if(time>=quizTime) clearInterval(t)
+
+            }, 1000)
+        }
+
+        var pressedNext = []
+
+        document.getElementById('checkAns').style.display = 'none'
+        document.getElementById('nextBtn').style.display = 'none'
+
+        function nextQuest(isStart){
+            document.getElementById('nextBtn').style.display = 'block'
+
+            if(!isStart){    
+                pressedNext.push(time)
+                activeQuestion++
+                questionDivs[activeQuestion-1].style.display = 'none'
+                questionDivs[activeQuestion].style.display = 'block'
+            }
+            else{
+                questionDivs[activeQuestion].style.display = 'block'
+                document.getElementById('startBtn').style.display = 'none'
+            }
+            if(activeQuestion+1==questionDivs.length){
+                document.getElementById('nextBtn').style.display = 'none'
+                document.getElementById('checkAns').style.display = 'block'
+            }
+        }
+
+        var points = 0
+
+        function checkAnswers(){
+            clearInterval(t)
+            pressedNext.push(time)
+            console.log(pressedNext)
+
+            for(var i=0; i<questionDivs.length; i++){
+                questionDivs[i].style.display = 'block'
+            }
+
+            var questions = Object.keys(questionsAndAnswers)
+            
+            for(var q = 0; q < questions.length; q++){
+                var answers = document.getElementsByName(questions[q])
+                
+                for(var i = 0; i < answers.length; i++){
+                    
+                    if(answers[i].checked && answers[i].value == 'True'){
+
+                        if(i > 0){
+                            timeAnswer = pressedNext[i] - pressedNext[i-1] == 0 ? 1 : pressedNext[i] - pressedNext[i-1]   // i = question
+                            
+                            if(timeAnswer <= timePerQuestionInSeconds / 2){ 
+                                points += 2 + Math.pow((timeAnswer * 10 / timePerQuestionInSeconds), -1) * 2 //extra points
+                            }    
+                        
+                            else
+                                points += 2
+
+                        }
+                        else{
+                            timeAnswer = pressedNext[i] == 0 ? 1 : pressedNext[i]
+
+                            if(timeAnswer <= timePerQuestionInSeconds / 2){ 
+                                points += 2 + Math.pow((timeAnswer * 10 / timePerQuestionInSeconds), -1) * 2 //extra points
+                            }
+                            else
+                                points += 2
+                        }
+                    }
+                }
+            }
+            console.log('POINTS: ' + points)
+
+            var openTasksInput = document.getElementsByName(openTasks)
+
+            //OPEN TASKS
+            for(var i = 0; i < openTasksInput.length; i++){
+                console.log(openTasksInput[i].value)
+            }
+
+            document.getElementsByName('score')[0].value = points
+            console.log(document.getElementsByName('score')[0].value)
+        }
+    </script>
+
+    <script>
+        $(document).on('submit', '#scoreForm', function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/add-score/',
+                data: {
+                    next: $('#next').val(),
+                    quiz: $('#quiz').val(),
+                    score: $('#score').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function (data){
+                    console.log('success')
+                }
+            })
+        })
+    </script>
+
+{% endblock %}

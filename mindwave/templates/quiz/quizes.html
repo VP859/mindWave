@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    {% for subject in subjects %}
+        <a href="/quizes/{{subject.pk}}/">{{subject}}</a>
+    {% endfor %}
+
+{% endblock %}
