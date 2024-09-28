@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for team in teams %}
+    
+        <a href="/teams/groups/{{team.pk}}">{{team}}</a> <br>
+    {% endfor %}
+
+{% endblock %}
