@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
+from accounts.models import Profile
 from .models import Team
 from .forms import Create_team_form
 
@@ -31,12 +33,22 @@ def create_team(request):
 
 @login_required
 def edit_team(request, team_id):
-    team = Team.objects.get(id=team_id)
+    # team = Team.objects.get(id=team_id)
+    # if request.method == 'POST':
+    #     form = Create_team_form(request.POST, instance=team)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('teams/')
+    # else:
+    #     form = Create_team_form(instance=team)
+    # return render(request, 'teams/edit_team.html', {'form': form})
+    users = Profile.objects.all()
+    
+    context = {
+        'users': users,
+    }
+    
     if request.method == 'POST':
-        form = Create_team_form(request.POST, instance=team)
-        if form.is_valid():
-            form.save()
-            return redirect('teams/')
-    else:
-        form = Create_team_form(instance=team)
-    return render(request, 'teams/edit_team.html', {'form': form})
+        print(f'user {request.POST.getlist('selectUser')}')
+        
+    return render(request, 'teams/edit_team.html', context)

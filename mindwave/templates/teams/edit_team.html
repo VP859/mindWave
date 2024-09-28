@@ -6,7 +6,15 @@
     <h1>Edit team</h1>
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <!-- {{ form.as_p }} -->
+          <input type="text" name="teamName"> <br>
+
+        <select name="selectUser" id="" multiple>
+        {% for user in users %}
+            <option value="{{user.pk}}">{{user}}</option>
+        {% endfor %}
+        </select>
+        <br>
 
         <input type="submit" value="Save changes">
     </form>
