@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     
     "accounts.apps.AccountsConfig",
     'base.apps.BaseConfig',
+    'teams.apps.TeamsConfig',
     
     
     # additional apps
@@ -133,3 +134,27 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+import os
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Crispy forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# user
+login_redirect_url = '/'
+logout_redirect_url = '/'
+register_redirect_url = '/login/'
+
+MEDIA_URL = '/profile_pictures/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'profile_pictures')
