@@ -19,10 +19,12 @@ class Message(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     text = models.TextField(blank=False, null=False)
     time_sent = models.DateTimeField(auto_now_add=True)
-    attachments = models.FileField(upload_to='files/', blank=True, null=True)
 
     def get_answers(self):
         return self.answertomessage_set.all()
+    
+    def get_files(self):
+        return self.filemodelmessage_set.all()
 
 class AnswerToMessage(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -30,4 +32,14 @@ class AnswerToMessage(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     text = models.TextField(blank=False, null=False)
     time_sent = models.DateTimeField(auto_now_add=True)
-    attachments = models.FileField(upload_to='files/', blank=True, null=True)
+
+    def get_files(self):
+        return self.filemodelanswer_set.all()
+
+class FileModelMessage(models.Model):
+    doc = models.FileField(upload_to='media/')
+    message = models.ForeignKey(Message, on_delete=models.CASCADE)
+
+class FileModelAnswer(models.Model):
+    doc = models.FileField(upload_to='media/')
+    answer = models.ForeignKey(AnswerToMessage, on_delete=models.CASCADE)

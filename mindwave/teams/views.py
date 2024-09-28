@@ -2,9 +2,10 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 
 from accounts.models import Profile
-from .models import AnswerToMessage, Team, Message
+from .models import AnswerToMessage, Team, Message, FileModelAnswer, FileModelMessage
 from .forms import Create_team_form, Edit_team_form
 
 
@@ -80,8 +81,6 @@ def groups(request):
 def groupChat(request, team_id):
     team = Team.objects.get(pk=team_id)
     
-    
-    
     context = {
         'team': team,
     }
@@ -92,7 +91,14 @@ def sendMessage(request, team_id):
     msgId = request.POST['messageId']
     msg = request.POST['msg']
     teamID = request.POST['team_id']
-    print(request.FILES.getlist('file'))
+    print(request.FILES.get('file'))
+
+    file = request.FILES.get('file')
+    fss = FileSystemStorage()
+    filename = fss.save(file.name, file)
+    url = fss.url(filename)
+
+    
 
     if msgId != '':
         answer = AnswerToMessage.objects.create(
@@ -101,6 +107,7 @@ def sendMessage(request, team_id):
             team = Team.objects.get(pk=teamID),
             text = msg,
         )
+        FileModelAnswer.objects.create(doc=url, answer=answer)
         return HttpResponse(render(request, 'teams/reply.html', {'answer': answer}))
     else:
         message = Message.objects.create(
@@ -108,4 +115,5 @@ def sendMessage(request, team_id):
             team = Team.objects.get(pk=teamID),
             text = msg,
         )
+        FileModelMessage.objects.create(doc=url, message=message)
         return HttpResponse(render(request, 'teams/newMessage.html', {'message': message}))
