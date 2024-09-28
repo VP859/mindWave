@@ -36,6 +36,9 @@ urlpatterns = [
     # teams
     path('teams/', include('teams.urls')),
     
+    # gpt
+    path('gpt/', include('gpt.urls')),
+    
 ]
 
 

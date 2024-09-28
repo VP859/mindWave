@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     'base.apps.BaseConfig',
     'teams.apps.TeamsConfig',
+    'gpt.apps.GptConfig',
     
     
     # additional apps
@@ -155,6 +158,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 login_redirect_url = '/'
 logout_redirect_url = '/'
 register_redirect_url = '/login/'
+
 
 MEDIA_URL = '/meida/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

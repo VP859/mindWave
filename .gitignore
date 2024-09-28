@@ -5,4 +5,4 @@ env
 /pevolution/env
 db.sqlite3
 .DS_Store
-hackyeah2024/profile_pictures/*
+.env
