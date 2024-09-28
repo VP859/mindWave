@@ -1,0 +1,10 @@
+django
+django-crispy-forms
+crispy-bootstrap5
+Pillow
+django-qr-code
+django-paypal
+stripe
+django-widget-tweaks
+python-dateutil
+requests
