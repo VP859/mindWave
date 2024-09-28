@@ -44,10 +44,6 @@ class UserForm(forms.ModelForm):
         fields = ['username', 'first_name', 'last_name', 'email']
 
 class ProfileForm(forms.ModelForm):
-    profile_picture = forms.ImageField(required=False)
-    
-    role = forms.ChoiceField(choices=Profile.roles)
-
     class Meta:
         model = Profile
         fields = ['profile_picture', 'role']
