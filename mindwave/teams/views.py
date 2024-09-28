@@ -37,7 +37,7 @@ def create_team(request):
     }
     
     if request.method == 'POST':
-        print(f'user {request.POST.getlist('selectUser')}')
+        # print(f'user {request.POST.getlist('selectUser')}')
         team = Team.objects.create(team_name=request.POST.get('teamName'))
         members = request.POST.getlist('selectUser')
         for member in members:
@@ -59,7 +59,7 @@ def edit_team(request, team_id):
         for member in members:
             team.members.add(member)
         team.save()
-        return redirect('teams:my_teams')
+        return redirect('my_teams')
     
     context = {
         'team': team,
