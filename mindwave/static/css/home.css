@@ -5,6 +5,10 @@
     font-weight: 400;
     font-style: normal;
 }
+html {
+    scroll-behavior: smooth;
+    transition: all auto ease-in-out;
+}
 body{
     background-color: #020202;
     animation:showItems 0.5s infinite;

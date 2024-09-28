@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} MindWave {% endblock %}</title>
-    <link rel="icon" type="image/x-icon" href="img/Logo-favicon.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/Logo-favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <!--Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,25 +15,25 @@
 <body>
     <header id="topNav">
         <div id="logo">
-            <img src="img/Logo-favicon.png" height="28px" alt="logo">
+            <img src="{% static 'img/Logo-favicon.png' %}" height="28px" alt="logo">
             <p id="logo-text"><span style="color: #46B58E;font-weight: 700;">m</span>ind<span style="color: #46B58E;font-weight: 700;">W</span>ave</p>
             <input id="search" type="search" placeholder="Search">
         </div>
         <div id="topNav-menu">
             <ul id="menu-ul">
                 <li><a id="menu-a" id="active" href="Home.html">Quick Start</a></li>
-                <li><a id="menu-a" href="">Features&Benefits</a></li>
-                <li><a id="menu-a" href="">About</a></li>
-                <li><a id="menu-a" href="">How Does it work?</a></li>
-                <li><a id="menu-a" href="">How to Start?</a></li>
-                <li><a id="menu-a" href="">Reviews</a></li>
-                <li><a id="menu-a" href="">Other</a></li>
+                <li><a id="menu-a" href="#featuresAndBenefits">Features&Benefits</a></li>
+                <li><a id="menu-a" href="#about">About</a></li>
+                <li><a id="menu-a" href="#howDoesItWork">How Does it work?</a></li>
+                <li><a id="menu-a" href="#howToStart">How to Start?</a></li>
+                <li><a id="menu-a" href="#reviews">Reviews</a></li>
+                <li><a id="menu-a" href="#footer1">Other</a></li>
             </ul>
         </div>
         <div id="user">
             <a class="sign" id="signIn" href="">Sign in</a>
             <a class="sign" id="signUp" href="">Sign up</a>
-            <a href=""><img src="img/Generic avatar.png" height="40px"></a>
+            <a href=""><img src="{% static 'img/Generic avatar.png' %}" height="40px"></a>
         </div>
     </header>
     <div id="start">
@@ -44,66 +45,66 @@
         </div>
         <div id="start-right"></div>
             <div id="start-image">
-                <img src="img/Brain img.png" height="500px">
+                <img src="{% static 'img/Brain img.png' %}" height="500px">
                 <div id="flare"></div>
-                <img style="position: absolute;right: 800px;top:500px" src="img/Book.png">
-                <img style="position: absolute;top:200px;" src="img/Book.png">
-                <img style="position: absolute;top:500px;" src="img/Lamp.png">
-                <img style="position: absolute;top:250px;right: 700px" src="img/Lamp.png">
+                <img style="position: absolute;right: 800px;top:500px" src="{% static 'img/Book.png' %}">
+                <img style="position: absolute;top:200px;" src="{% static 'img/Book.png' %}">
+                <img style="position: absolute;top:500px;" src="{% static 'img/Lamp.png' %}">
+                <img style="position: absolute;top:250px;right: 700px" src="{% static 'img/Lamp.png' %}">
             </div>
         </div>
     </div>
     <div id="featuresAndBenefits">
         <p id="featuresAndBenefits-p">Let’s see what we can offer</p>
-        <h1 id="featuresAndBenefits-h1"><img src="img/Dimond_alt_fill.png">Features&Benefits</h1>
+        <h1 id="featuresAndBenefits-h1"><img src="{% static 'img/Dimond_alt_fill.png' %}">Features&Benefits</h1>
         <hr style="max-width: 50%;border:1px solid #266CEF">
         <div id="features">
             <div class="feature">
-                <img id="feature-img" src="img/User_light.png">
+                <img id="feature-img" src="{% static 'img/User_light.png' %}">
                 <h1 id="feature-h1">Personalized Learning Paths</h1>
                 <p id="feature-p">Tailored educational journeys based on individual strengths, weaknesses, and preferences.</p>
             </div>
             <div class="feature">
-                <img id="feature-img" src="img/Percent_light.png">
+                <img id="feature-img" src="{% static 'img/Percent_light.png' %}">
                 <h1 id="feature-h1">Progress Tracking and Analytics</h1>
                 <p id="feature-p">Track your learning progress with detailed analytics and insights to help you stay on target with your goals</p>
             </div>  
             <div class="feature">
-                <img id="feature-img" src="img/Img_box_light.png">
+                <img id="feature-img" src="{% static 'img/Img_box_light.png' %}">
                 <h1 id="feature-h1">Interactive Quizzes and Tasks</h1>
                 <p id="feature-p">Engage with interactive quizzes and tasks that adapt to your learning progress and provide immediate feedback.</p>
             </div> 
         </div>
         <div id="features" style="margin-top:30px;">
             <div class="feature">
-                <img id="feature-img" src="img/Group_light-1.png">
+                <img id="feature-img" src="{% static 'img/Group_light-1.png' %}">
                 <h1 id="feature-h1">Video Call Integration</h1>
                 <p id="feature-p">Participate in live study sessions and discussions through integrated video calls.</p>
             </div>  
             <div class="feature">
-                <img id="feature-img" src="img/Subttasks_duotone.png">
+                <img id="feature-img" src="{% static 'img/Subttasks_duotone.png' %}">
                 <h1 id="feature-h1">AI-Generated Study Materials</h1>
                 <p id="feature-p">Receive automated quizzes, summaries, and key concepts generated from your study materials.</p>
             </div>  
             <div class="feature">
-                <img id="feature-img" src="img/Map_duotone_line.png">
+                <img id="feature-img" src="{% static 'img/Map_duotone_line.png' %}">
                 <h1 id="feature-h1">Global Learning Challenges</h1>
                 <p id="feature-p">Participate in global challenges and competitions to test your knowledge and compete with peers worldwide</p>
             </div>  
         </div>
         <div id="features" style="margin-top:30px;">
             <div class="feature">
-                <img id="feature-img" src="img/Trophy_light.png">
+                <img id="feature-img" src="{% static 'img/Trophy_light.png' %}">
                 <h1 id="feature-h1">Gamification and Rewards</h1>
                 <p id="feature-p">Earn points, badges, and rewards for completing tasks, staying consistent, and excelling in your studies</p>
             </div> 
             <div class="feature">
-                <img id="feature-img" src="img/Subttasks_duotone.png">
+                <img id="feature-img" src="{% static 'img/Subttasks_duotone.png' %}">
                 <h1 id="feature-h1">Virtual Teacher</h1>
                 <p id="feature-p">Get assistance from our AI-powered virtual teacher that provides personalized answers, explanations, and real-world applications.</p>
             </div>
             <div class="feature">
-                <img id="feature-img" src="img/Group_light.png">
+                <img id="feature-img" src="{% static 'img/Group_light.png' %}">
                 <h1 id="feature-h1">Team Collaboration</h1>
                 <p id="feature-p">Work in teams with classmates and teachers to complete assignments, discuss topics, and track progress</p>
             </div>  
@@ -111,7 +112,7 @@
     </div>
     <div id="about">
         <p id="about-p">Let us tell you something about us</p>
-        <h1 id="about-h1"><img src="img/Search_alt.png">About Platform</h1>
+        <h1 id="about-h1"><img src="{% static 'img/Search_alt.png' %}">About Platform</h1>
         <hr style="max-width: 50%;border:1px solid #F261FF">
         <div id="about-parent">
             <div id="about-child" style="background-color:#00C49A">
@@ -143,26 +144,26 @@
     </div>
     <div id="howDoesItWork">
         <p id="howDoesItWork-p">Learn how to use our platform</p>
-        <h1 id="howDoesItWork-h1"><img src="img/Materials_fill.png">How Doest it work?</h1>
+        <h1 id="howDoesItWork-h1"><img src="{% static 'img/Materials_fill.png' %}">How Doest it work?</h1>
         <hr style="max-width: 50%;border:1px solid #00C49A">
         <div id="howDoesItWork-container">
             <div id="howDoesItWork-child">
                 <h1 id="howDoesItWork-child-h1">1.Technologies used</h1>
-                <button id="show"><img src="img/arrow_back.png">Show</button>
+                <button id="show"><img src="{% static 'img/arrow_back.png' %}">Show</button>
             </div>
             <div id="howDoesItWork-child">
                 <h1 id="howDoesItWork-child-h1">2.Technologies used</h1>
-                <button id="show"><img src="img/arrow_back.png">Show</button>
+                <button id="show"><img src="{% static 'img/arrow_back.png' %}">Show</button>
             </div>
             <div id="howDoesItWork-child">
                 <h1 id="howDoesItWork-child-h1">3.Technologies used</h1>
-                <button id="show"><img src="img/arrow_back.png">Show</button>
+                <button id="show"><img src="{% static 'img/arrow_back.png' %}">Show</button>
             </div>
         </div>
     </div>
     <div id="howToStart">
         <p id="howToStart-p">It’s easier than you think</p>
-        <h1 id="howToStart-h1"><img src="img/Flag_finish.png">How to start?</h1>
+        <h1 id="howToStart-h1"><img src="{% static 'img/Flag_finish.png' %}">How to start?</h1>
         <hr style="max-width: 50%;border:1px solid #E98A15">
         <div id="instruction">
             <ul id="createAccount">
@@ -192,23 +193,23 @@
     </div>
     <div id="reviews">
         <p id="reviews-p">See what people think about us!</p>
-        <h1 id="reviews-h1"><img src="img/Chat_search_fill.png">Reviews</h1>
+        <h1 id="reviews-h1"><img src="{% static 'img/Chat_search_fill.png' %}">Reviews</h1>
         <hr style="max-width: 50%;border:1px solid white">
         <div id="review-container">
             <div id="review">
-                <img style="margin:10px" src="img/Stars.png"  height="18px" width="144">
+                <img style="margin:10px" src="{% static 'img/Stars.png' %}"  height="18px" width="144">
                 <p id="review-p">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
-                <h1 id="review-name"><img src="img/Generic avatar.png" height="28px">User1</h1>
+                <h1 id="review-name"><img src="{% static 'img/Generic avatar.png' %}" height="28px">User1</h1>
             </div>
             <div id="review">
-                <img style="margin:10px" src="img/Stars.png"  height="18px" width="144">
+                <img style="margin:10px" src="{% static 'img/Stars.png' %}"  height="18px" width="144">
                 <p id="review-p">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
-                <h1 id="review-name"><img src="img/Generic avatar.png" height="28px">User1</h1>
+                <h1 id="review-name"><img src="{% static 'img/Generic avatar.png' %}" height="28px">User1</h1>
             </div>
             <div id="review">
-                <img style="margin:10px" src="img/Stars.png"  height="18px" width="144">
+                <img style="margin:10px" src="{% static 'img/Stars.png' %}"  height="18px" width="144">
                 <p id="review-p">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
-                <h1 id="review-name"><img src="img/Generic avatar.png" height="28px">User1</h1>
+                <h1 id="review-name"><img src="{% static 'img/Generic avatar.png' %}" height="28px">User1</h1>
             </div>
         </div>
     </div>

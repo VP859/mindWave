@@ -7,7 +7,7 @@ from .models import Subject, Quiz, Score
 
 # Create your views here.
 def home(request):
-    return render(request, 'base.html')
+    return render(request, 'home.html')
 
 def quizes(request):
     subjects = Subject.objects.all()
