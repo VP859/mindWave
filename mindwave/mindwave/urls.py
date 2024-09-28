@@ -28,6 +28,7 @@ urlpatterns = [
     path('register/', accounts_views.register, name="register"),
     path('profile/', accounts_views.profile, name="profile"),
     path('profile/edit/', accounts_views.edit_profile, name="edit_profile"),
+    path('login/', accounts_views.login_user, name="login"),
     path('logout/', accounts_views.logout, name="logout"),
     path('accounts/profile/', accounts_views.home, name="home"),
     path('set-avatar/', accounts_views.setAvatar, name="setAvatar"),

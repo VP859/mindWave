@@ -30,10 +30,16 @@ class Profile(models.Model):
             )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+<<<<<<< HEAD
+    age = models.IntegerField(default=25)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)    
+=======
     profile_picture = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     teams = models.ForeignKey('teams.Team', on_delete=models.CASCADE, blank=True, null=True)
+>>>>>>> 13d370f4a013c9f685610af11cf3a889834b61b5
 
     roles = (
         ('student', 'Student'),

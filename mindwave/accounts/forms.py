@@ -11,10 +11,11 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField()
     firstname = forms.CharField(max_length=100)
     lastname = forms.CharField(max_length=100)
+    age = forms.IntegerField()
 
     class Meta:
         model = User
-        fields = ["firstname", "lastname", "username", "email", "password1", "password2"]
+        fields = ["firstname", "lastname", "username", 'age', "email", "password1", "password2"]
     
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
@@ -33,8 +34,28 @@ class RegisterForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['firstname']
         user.last_name = self.cleaned_data['lastname']
+        user.age = self.cleaned_data['age']
         user.save()
         return user
+    
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
+    
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Login'))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        if user is None:
+            raise forms.ValidationError('Invalid username or password')
+        return cleaned_data
     
 class UserForm(forms.ModelForm):
     password = None  # Exclude the password field for the update
