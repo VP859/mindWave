@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     'base.apps.BaseConfig',
     'teams.apps.TeamsConfig',
+    'gpt.apps.GptConfig',
     
     
     # additional apps
@@ -158,3 +161,14 @@ register_redirect_url = '/login/'
 
 MEDIA_URL = '/profile_pictures/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'profile_pictures')
+
+
+
+API_KEY = config('API_KEY', default=None)
+
+if not API_KEY:
+    raise ValueError("API key not found. Make sure it's set in the .env file.")
+
+
+if not API_KEY:
+    raise ValueError("API key not found. Please check your .env file.")

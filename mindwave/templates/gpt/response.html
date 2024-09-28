@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+GPT
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Response</h1>
+            <p>{{ response }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="prompt">
+            <h2>Prompt</h2>
+            <form method="post">
+                {% csrf_token %}
+                <textarea name="prompt" class="form-control" rows="5">{{ prompt }}</textarea>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

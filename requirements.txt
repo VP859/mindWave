@@ -1,0 +1,10 @@
+django
+django-crispy-forms
+crispy-bootstrap5
+Pillow
+django-widget-tweaks
+python-dateutil
+requests
+python-dotenv
+google-generativeai
+python-decouple
