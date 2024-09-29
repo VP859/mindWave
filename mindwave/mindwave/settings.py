@@ -162,3 +162,9 @@ register_redirect_url = '/'
 
 MEDIA_URL = '/meida/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+API_KEY = config('API_KEY', default=None)
+if not API_KEY:
+    raise ValueError("API key not found. Make sure it's set in the .env file.")
+if not API_KEY:
+    raise ValueError("API key not found. Please check your .env file.")

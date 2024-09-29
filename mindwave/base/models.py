@@ -113,3 +113,11 @@ class DiagnosticScore(models.Model):
     
     def __str__(self) -> str:
         return super().__str__()
+    
+
+class Category(models.Model):
+    category_name = models.CharField(max_length=60)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    
+    def __str__(self) -> str:
+        return self.name
