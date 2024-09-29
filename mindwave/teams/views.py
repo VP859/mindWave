@@ -2,9 +2,11 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 
 from accounts.models import Profile
-from .models import AnswerToMessage, Team, Message
+from base.models import Subject
+from .models import AnswerToMessage, Team, Message, FileModelAnswer, FileModelMessage, LookingRival, LookingRivalRequest
 from .forms import Create_team_form, Edit_team_form
 
 
@@ -80,8 +82,6 @@ def groups(request):
 def groupChat(request, team_id):
     team = Team.objects.get(pk=team_id)
     
-    
-    
     context = {
         'team': team,
     }
@@ -92,7 +92,14 @@ def sendMessage(request, team_id):
     msgId = request.POST['messageId']
     msg = request.POST['msg']
     teamID = request.POST['team_id']
-    print(request.FILES.getlist('file'))
+    print(request.FILES.get('file'))
+
+    file = request.FILES.get('file')
+    fss = FileSystemStorage()
+    filename = fss.save(file.name, file)
+    url = fss.url(filename)
+
+    
 
     if msgId != '':
         answer = AnswerToMessage.objects.create(
@@ -101,6 +108,7 @@ def sendMessage(request, team_id):
             team = Team.objects.get(pk=teamID),
             text = msg,
         )
+        FileModelAnswer.objects.create(doc=url, answer=answer)
         return HttpResponse(render(request, 'teams/reply.html', {'answer': answer}))
     else:
         message = Message.objects.create(
@@ -108,4 +116,48 @@ def sendMessage(request, team_id):
             team = Team.objects.get(pk=teamID),
             text = msg,
         )
+        FileModelMessage.objects.create(doc=url, message=message)
         return HttpResponse(render(request, 'teams/newMessage.html', {'message': message}))
+    
+import random 
+
+def rivarly(request):
+    users = LookingRival.objects.all().exclude(user=request.user.profile)
+    sentInvitations = LookingRivalRequest.objects.filter(receiver=request.user.profile)
+    yourRivals = LookingRival.objects.filter(user=request.user.profile)
+
+    subjects = Subject.objects.all()
+
+    context = {
+        'users': users,    
+        'rivarly': sentInvitations,
+        'yourRivals': yourRivals,
+        'user': request.user.profile,
+        'random': random.randint(0, len(subjects)-1),
+    }
+    return render(request, 'teams/rivarly.html', context)
+
+def invitePeople(request, user_id):
+    user = request.user.profile
+    userRival = LookingRival.objects.get(user=user)
+    
+    invitedUserRival = LookingRival.objects.get(user_id=user_id)
+
+    invitation = LookingRivalRequest.objects.create(
+        sender = user,
+        receiver = invitedUserRival.user,
+    )
+
+    return redirect('rivarly')
+
+def acceptPeople(request, sender_id, receiver_id):
+    print(sender_id)
+    print(receiver_id)
+
+    rival = LookingRivalRequest.objects.get(sender_id=sender_id,
+                                    receiver_id=receiver_id)
+    
+    print(rival)
+    rival.accept()
+
+    return redirect('rivarly')

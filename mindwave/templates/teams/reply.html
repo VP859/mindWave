@@ -2,4 +2,7 @@
     {{answer.user}} <br>
     {{answer.text}} <br>
     {{answer.time_sent}} <br>
+    {% for file in answer.get_files %}
+        <img src="{{file.doc}}" alt="not img" width="50px"> <br>
+    {% endfor %} <br> <br>
 </p> <br>

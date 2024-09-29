@@ -10,6 +10,10 @@
                 {{message.user}} <br>
                 {{message.text}} <br>
                 {{message.time_sent}} <br>
+                {% for file in message.get_files %}
+                    <img src="{{file.doc}}" alt="not img" width="50px"> <br>
+                {% endfor %}
+                <br>
                 <button onclick="replyTo('{{message.pk}}')">Reply</button>
                 <br>
                 
@@ -17,7 +21,10 @@
                     {% for answer in message.get_answers %}
                         {{answer.user}} <br>
                         {{answer.text}} <br>
-                        {{answer.time_sent}} <br> <br>
+                        {{answer.time_sent}} <br>
+                        {% for file in answer.get_files %}
+                            <img src="{{file.doc}}" alt="not img" width="50px"> <br>
+                        {% endfor %} <br> <br>
                     {% endfor %}
                 </p>
                 
@@ -46,17 +53,20 @@
 
         $(document).on('submit', '#msgForm', function(e){
             e.preventDefault()
+            var data = new FormData()
+            data.append('file', $('input[id^="file"]')[0].files[0])
+            data.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+            data.append('msg', $('#msg').val())
+            data.append('messageId', message_id)
+            data.append('team_id', '{{team.pk}}')
             $.ajax({
                 type: 'POST',
                 url: '/teams/groups/<str:team_id>/send-message/',
                 mimeType:'multipart/form-data',
-                data: {
-                    messageId: message_id,
-                    msg: $('#msg').val(),
-                    team_id: '{{team.pk}}',
-                    file: $('#file').files,
-                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-                },
+                processData: false,
+                contentType: false,
+                data: data,
+                    // csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
                 success: function(data){
                     console.log('success')
                     if(message_id != '')

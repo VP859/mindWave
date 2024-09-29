@@ -9,7 +9,10 @@
         {% for answer in message.get_answers %}
             {{answer.user}} <br>
             {{answer.text}} <br>
-            {{answer.time_sent}} <br> <br>
+            {{answer.time_sent}} <br>
+            {% for file in message.get_files %}
+                    <img src="{{file.doc}}" alt="not img" width="50px"> <br>
+            {% endfor %} <br> <br>
         {% endfor %}
     </p>
     
