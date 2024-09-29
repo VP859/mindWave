@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for rival in rivarly %}
+        {{rival.sender}} invited you <br>
+        <a href="/teams/rivarly/accept/{{rival.sender.pk}}/{{rival.receiver.pk}}/">Accept</a>
+    {% endfor %}
+
+    <hr>
+    Invite: <br>    
+    {% for user in users %}
+    <a href="/teams/rivarly/invite/{{user.pk}}/">{{user.user}}</a> <br>
+    {% endfor %}
+    <hr>
+    
+    Pojedynek: <br>
+    {{user}} <br> <br>
+    {% for rival in yourRivals %}
+        Rivals: <br>
+        {% for r in rival.rivals.all %}
+            <a href="/quizes/{{random}}/{{user}}/{{r}}/">{{r}}</a> <br>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

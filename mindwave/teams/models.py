@@ -43,3 +43,39 @@ class FileModelMessage(models.Model):
 class FileModelAnswer(models.Model):
     doc = models.FileField(upload_to='media/')
     answer = models.ForeignKey(AnswerToMessage, on_delete=models.CASCADE)
+
+
+#rivalry
+class LookingRival(models.Model):
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    rivals = models.ManyToManyField(Profile, related_name='rivals', blank=True)
+
+    def addFriend(self, account):
+        if not account in self.rivals.all():
+            self.rivals.add(account)
+
+    def removeFriend(self, account):
+        if account in self.rivals.all():
+            self.rivals.remove(account)
+
+    def get_rivals(self):
+        return "\n".join([r.rivals for r in self.rivals.all()])
+
+
+class LookingRivalRequest(models.Model):
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='receiver')
+    is_active = models.BooleanField(default=True)
+
+    def accept(self):
+        self.is_active = False
+        senderLookingRival = LookingRival.objects.get(user=self.sender)
+        
+        if senderLookingRival:
+            senderLookingRival.addFriend(self.receiver)
+            receiverLookingRival = LookingRival.objects.get(user=self.receiver)
+            
+            if receiverLookingRival:
+                receiverLookingRival.addFriend(self.sender)
+
+        self.save()
