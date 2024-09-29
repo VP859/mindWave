@@ -95,9 +95,9 @@
                 </div>
             </div>
         </div>
-        <div>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <div id="message">
 
-            <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
                 {% for message in team.get_messages %}
                     <!-- <div id="message{{message.pk}}">
@@ -126,7 +126,7 @@
 
                         </div>
                     </div> --> <br>
-                    <div id="message message{{message.pk}}">
+                    <div id="message">
                         <h1 id="message-sender"><img style="padding:10px" src="{% static 'img/icons/gen av.png' %}">Tomasz Kycia - Owner</h1>
                         <p id="message-text">{{message.text}}.</p>
                         <button id="show">Show 5 answers</button>
