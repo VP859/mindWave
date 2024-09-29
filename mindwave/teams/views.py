@@ -92,14 +92,16 @@ def sendMessage(request, team_id):
     msgId = request.POST['messageId']
     msg = request.POST['msg']
     teamID = request.POST['team_id']
-    print(request.FILES.get('file'))
+    try:
+        print(request.FILES.get('file'))
 
-    file = request.FILES.get('file')
-    fss = FileSystemStorage()
-    filename = fss.save(file.name, file)
-    url = fss.url(filename)
+        file = request.FILES.get('file')
+        fss = FileSystemStorage()
+        filename = fss.save(file.name, file)
+        url = fss.url(filename)
 
-    
+    except:
+        pass
 
     if msgId != '':
         answer = AnswerToMessage.objects.create(
@@ -108,7 +110,10 @@ def sendMessage(request, team_id):
             team = Team.objects.get(pk=teamID),
             text = msg,
         )
-        FileModelAnswer.objects.create(doc=url, answer=answer)
+        try:
+            FileModelAnswer.objects.create(doc=url, answer=answer)
+        except:
+            pass
         return HttpResponse(render(request, 'teams/reply.html', {'answer': answer}))
     else:
         message = Message.objects.create(
@@ -116,7 +121,10 @@ def sendMessage(request, team_id):
             team = Team.objects.get(pk=teamID),
             text = msg,
         )
-        FileModelMessage.objects.create(doc=url, message=message)
+        try:
+            FileModelMessage.objects.create(doc=url, message=message)
+        except:
+            pass
         return HttpResponse(render(request, 'teams/newMessage.html', {'message': message}))
     
 import random 

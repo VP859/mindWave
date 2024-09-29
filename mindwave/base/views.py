@@ -8,10 +8,10 @@ from teams.models import RivalScore
 
 # Create your views here.
 def home(request):
-    if request.user:
+    if not request.user:
         return render(request, 'homeForLogged.html')
     else:
-        pass
+        return render(request, 'Home.html')
 
 def quizes(request):
     subjects = Subject.objects.all()
