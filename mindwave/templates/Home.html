@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindWave</title>
+    <link rel="icon" type="image/x-icon" href="img/Logo-favicon.png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header id="topNav">
+        <div id="logo">
+            <img src="{% static 'img/Logo-favicon.png' %}" height="28px" alt="logo">
+            <p id="logo-text"><span style="color: #46B58E;font-weight: 700;">m</span>ind<span style="color: #46B58E;font-weight: 700;">W</span>ave</p>
+            <input id="search" type="search" placeholder="Search">
+        </div>
+        <div id="topNav-menu">
+            <ul id="menu-ul">
+                <li><a id="menu-a" id="active" href="Home.html">Quick Start</a></li>
+                <li><a id="menu-a" href="">Features&Benefits</a></li>
+                <li><a id="menu-a" href="">About</a></li>
+                <li><a id="menu-a" href="">How Does it work?</a></li>
+                <li><a id="menu-a" href="">How to Start?</a></li>
+                <li><a id="menu-a" href="">Reviews</a></li>
+                <li><a id="menu-a" href="">Other</a></li>
+            </ul>
+        </div>
+        <div id="user">
+            <a class="sign" id="signIn" href="">Sign in</a>
+            <a class="sign" id="signUp" href="">Sign up</a>
+            <a href=""><img src="{% static 'img/Generic avatar.png' %}" height="40px"></a>
+        </div>
+    </header>
+    <div id="start">
+        <div id="start-left">
+            <h1 id="start-title"><span style="padding-left: 0;" id="title-discover">Discover</span> a New Era <br>of Learning with <span id="title-discover" style="color:#266CEF">mindWave</span></h1>
+            <p><span style="color:#00C49A">MindWave</span> is an innovative educational platform that combines artificial intelligence with interactive learning. It offers personalized paths, dynamic quizzes and engaging tasks, supporting students and teachers in effective and enjoyable learning.</p>
+            <a class="start-button" id="start-button1" href="">Start right now!</a>
+            <a class="start-button" id="start-button2" href="#featuresAndBenefits">See more</a>
+        </div>
+        <div id="start-right"></div>
+            <div id="start-image">
+                <img src="{% static 'img/Brain img.png' %}" height="500px">
+                <div id="flare"></div>
+                <img style="position: absolute;right: 800px;top:500px" src="{% static 'img/Book.png' %}">
+                <img style="position: absolute;top:200px;" src="{% static 'img/Book.png' %}">
+                <img style="position: absolute;top:500px;" src="{% static 'img/Lamp.png' %}">
+                <img style="position: absolute;top:250px;right: 700px" src="{% static 'img/Lamp.png' %}">
+            </div>
+        </div>
+    </div>
+    <div id="featuresAndBenefits">
+        <p id="featuresAndBenefits-p">Let’s see what we can offer</p>
+        <h1 id="featuresAndBenefits-h1"><img src="{% static 'img/Dimond_alt_fill.png' %}">Features&Benefits</h1>
+        <hr style="max-width: 50%;border:1px solid #266CEF">
+        <div id="features">
+            <div class="feature">
+                <img id="feature-img" src="{% static 'img/User_light.png' %}">
+                <h1 id="feature-h1">Personalized Learning Paths</h1>
+                <p id="feature-p">Tailored educational journeys based on individual strengths, weaknesses, and preferences.</p>
+            </div>
+            <div class="feature">
+                <img id="feature-img" src="{% static 'img/Percent_light.png' %}">
+                <h1 id="feature-h1">Progress Tracking and Analytics</h1>
+                <p id="feature-p">Track your learning progress with detailed analytics and insights to help you stay on target with your goals</p>
+            </div>  
+            <div class="feature">
+                <img id="feature-img" src="{% static 'img/Img_box_light.png' %}">
+                <h1 id="feature-h1">Interactive Quizzes and Tasks</h1>
+                <p id="feature-p">Engage with interactive quizzes and tasks that adapt to your learning progress and provide immediate feedback.</p>
+            </div> 
+        </div>
+        <div id="features" style="margin-top:30px;">
+            <div class="feature">
+                <img id="feature-img" src="{% static 'img/Group_light-1.png' %}">
+                <h1 id="feature-h1">Video Call Integration</h1>
+                <p id="feature-p">Participate in live study sessions and discussions through integrated video calls.</p>
+            </div>  
+            <div class="feature">
+                <img id="feature-img" src="{% static 'img/Subttasks_duotone.png' %}">
+                <h1 id="feature-h1">AI-Generated Study Materials</h1>
+                <p id="feature-p">Receive automated quizzes, summaries, and key concepts generated from your study materials.</p>
+            </div>  
+            <div class="feature">
+                <img id="feature-img" src="{% static 'img/Map_duotone_line.png' %}">
+                <h1 id="feature-h1">Global Learning Challenges</h1>
+                <p id="feature-p">Participate in global challenges and competitions to test your knowledge and compete with peers worldwide</p>
+            </div>  
+        </div>
+        <div id="features" style="margin-top:30px;">
+            <div class="feature">
+                <img id="feature-img" src="{% static 'img/Trophy_light.png' %}">
+                <h1 id="feature-h1">Gamification and Rewards</h1>
+                <p id="feature-p">Earn points, badges, and rewards for completing tasks, staying consistent, and excelling in your studies</p>
+            </div> 
+            <div class="feature">
+                <img id="feature-img" src="{% static 'img/Subttasks_duotone.png' %}">
+                <h1 id="feature-h1">Virtual Teacher</h1>
+                <p id="feature-p">Get assistance from our AI-powered virtual teacher that provides personalized answers, explanations, and real-world applications.</p>
+            </div>
+            <div class="feature">
+                <img id="feature-img" src="{% static 'img/Group_light.png' %}">
+                <h1 id="feature-h1">Team Collaboration</h1>
+                <p id="feature-p">Work in teams with classmates and teachers to complete assignments, discuss topics, and track progress</p>
+            </div>  
+        </div>
+    </div>
+    <div id="about">
+        <p id="about-p">Let us tell you something about us</p>
+        <h1 id="about-h1"><img src="{% static 'img/Search_alt.png' %}">About Platform</h1>
+        <hr style="max-width: 50%;border:1px solid #F261FF">
+        <div id="about-parent">
+            <div id="about-child" style="background-color:#00C49A">
+                <h1 id="about-child-h1">Brief Introduction</h1>
+                <p id="about-child-p">mindWave is a revolutionary educational platform that combines cutting-edge technology with a passion for learning. Our goal is to make learning easier and more effective for students and teachers through innovative approaches.</p>
+            </div>
+            <div id="about-child" style="background-color:#266CEF">
+                <h1 id="about-child-h1">Our Mission</h1>
+                <p id="about-child-p">Our mission is to transform the learning process, making it more interactive, effective, and tailored to individual needs. We believe every student deserves personalized support that facilitates achieving their educational goals</p>
+            </div>
+            <div id="about-child" style="background-color:white">
+                <h1 style="color:black" id="about-child-h1">Our Values</h1>
+                <p style="color:black" id="about-child-p">Innovation: We continuously evolve our solutions to provide the latest and most effective educational tools.
+                    Personalization: We tailor our services to individual needs to ensure that every learning experience is effective and engaging.
+                    Collaboration: We promote collaboration among students, teachers, and the community to collectively achieve educational goals.</p>
+            </div>
+            <div id="about-child" style="background-color:#FF0000">
+                <h1 id="about-child-h1">Our Story</h1>
+                <p id="about-child-p">The idea for EDU App was born from a desire to make education more accessible and engaging. Frustrated by traditional learning methods, we created a platform that combines innovative technology with a passion for teaching. Our goal is to provide a space where learners can thrive and succeed in their educational pursuits.</p>
+            </div>
+            <div id="about-child" style="background-color:#EB00FF">
+                <h1 id="about-child-h1">Future Plans</h1>
+                <p id="about-child-p">Looking ahead, EDU App plans to expand its offerings by introducing new courses, interactive features, and partnerships with educational institutions. We are excited to continue evolving and adapting to the needs of our learners, ensuring that education remains a lifelong journey.</p>
+            </div>
+            <div id="about-child" style="background-color:#00D1FF">
+                <h1  id="about-child-h1">What We Offer</h1>
+                <p id="about-child-p">EDU App features a diverse range of learning materials, including comprehensive courses, quizzes, and AI-driven recommendations. Whether you're looking to enhance your skills in a specific subject or explore new areas of interest, our platform is designed to support your educational journey.</p>
+        </div>
+    </div>
+    <div id="howDoesItWork">
+        <p id="howDoesItWork-p">Learn how to use our platform</p>
+        <h1 id="howDoesItWork-h1"><img src="{% static 'img/Materials_fill.png' %}">How Doest it work?</h1>
+        <hr style="max-width: 50%;border:1px solid #00C49A">
+        <div id="howDoesItWork-container">
+            <div id="howDoesItWork-child">
+                <h1 id="howDoesItWork-child-h1">1.Technologies used</h1>
+                <button id="show"><img src="{% static 'img/arrow_back.png' %}">Show</button>
+            </div>
+            <div id="howDoesItWork-child">
+                <h1 id="howDoesItWork-child-h1">2.Technologies used</h1>
+                <button id="show"><img src="{% static 'img/arrow_back.png' %}">Show</button>
+            </div>
+            <div id="howDoesItWork-child">
+                <h1 id="howDoesItWork-child-h1">3.Technologies used</h1>
+                <button id="show"><img src="{% static 'img/arrow_back.png' %}">Show</button>
+            </div>
+        </div>
+    </div>
+    <div id="howToStart">
+        <p id="howToStart-p">It’s easier than you think</p>
+        <h1 id="howToStart-h1"><img src="{% static 'img/Flag_finish.png' %}">How to start?</h1>
+        <hr style="max-width: 50%;border:1px solid #E98A15">
+        <div id="instruction">
+            <ul id="createAccount">
+                <li>1.Create Account</li>
+                <ul id="createAccount-child">
+                    <li>1.Add your email, Name, Last Name and your nick</li>
+                    <li>2.Confirm your e-mail</li>
+                    <li>3.Return to the website</li>
+                </ul>
+            </ul>
+            <ul style="margin-top:30px;" id="createAccount">
+                <li>2.Choose Learning Path</li>
+                <ul id="createAccount-child">
+                    <li>1.Choose subjects that your’re intrested in</li>
+                    <li>2.Do your first quiz</li>
+                    <li>3.See your results</li>
+                </ul>
+            </ul>
+            <ul style="margin-top:30px;" id="createAccount">
+                <li>3.Join a Team or Start Alone</li>
+                <ul id="createAccount-child">
+                    <li>1.Create a team or join existing one</li>
+                    <li>2.And enjoy learning with friends and amazing features!</li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <div id="reviews">
+        <p id="reviews-p">See what people think about us!</p>
+        <h1 id="reviews-h1"><img src="{% static 'img/Chat_search_fill.png' %}">Reviews</h1>
+        <hr style="max-width: 50%;border:1px solid white">
+        <div id="review-container">
+            <div id="review">
+                <img style="margin:10px" src="{% static 'img/Stars.png' %}"  height="18px" width="144">
+                <p id="review-p">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+                <h1 id="review-name"><img src="{% static 'img/Generic avatar.png' %}" height="28px">User1</h1>
+            </div>
+            <div id="review">
+                <img style="margin:10px" src="{% static 'img/Stars.png' %}"  height="18px" width="144">
+                <p id="review-p">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+                <h1 id="review-name"><img src="{% static 'img/Generic avatar.png' %}" height="28px">User1</h1>
+            </div>
+            <div id="review">
+                <img style="margin:10px" src="{% static 'img/Stars.png' %}"  height="18px" width="144">
+                <p id="review-p">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+                <h1 id="review-name"><img src="{% static 'img/Generic avatar.png' %}" height="28px">User1</h1>
+            </div>
+        </div>
+    </div>
+    <div id="startNow">
+        <h1 id="startNow-h1">What are you waiting for?</h1>
+        <a id="startNow-button" href="">Start Right Now</a>
+    </div>
+    <footer id="footer1">
+        <a class="footer-links" href="">Ranking</a>
+        <a class="footer-links" href="">Our Team</a>
+        <a class="footer-links" href="">Lesson</a>
+        <a class="footer-links" href="">Teams</a>
+        <a class="footer-links" href="">Profile</a>
+        <a class="footer-links" href="">About</a>
+    </footer>
+</body>
+</html>

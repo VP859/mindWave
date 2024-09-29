@@ -1,83 +1,195 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/threads.css' %}">
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-{% block content %}
-
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
-    <div id="messages">
-        {% for message in team.get_messages %}
-            <div id="message{{message.pk}}">
-                {{message.user}} <br>
-                {{message.text}} <br>
-                {{message.time_sent}} <br>
-                {% for file in message.get_files %}
-                    <img src="{{file.doc}}" alt="not img" width="50px"> <br>
-                {% endfor %}
-                <br>
-                <button onclick="replyTo('{{message.pk}}')">Reply</button>
-                <br>
-                
-                <p style="margin-left: 15px;">
-                    {% for answer in message.get_answers %}
-                        {{answer.user}} <br>
-                        {{answer.text}} <br>
-                        {{answer.time_sent}} <br>
-                        {% for file in answer.get_files %}
-                            <img src="{{file.doc}}" alt="not img" width="50px"> <br>
-                        {% endfor %} <br> <br>
-                    {% endfor %}
-                </p>
-                
-                <div id="reply{{message.pk}}">
-
+</head>
+<body>
+    <header id="sideNav">
+        <div>
+            <img id="logo" src="{% static 'img/logo main white.png' %}" height="48px">
+        </div>
+        <a style="border-radius: 50%;background-color: white;" class="items" href="">
+            <img style="mix-blend-mode: difference;" src="{% static 'img/icons/Home_light.png' %}">
+        </a>
+        <a class="items" href="">
+            <img src="{% static 'img/icons/Group_light.png' %}">
+        </a>
+        <a class="items" href="">
+            <img src="{% static 'img/icons/User_add_alt_light.png' %}">
+        </a>
+        <a class="items" href="">
+            <img src="{% static 'img/icons/Chart_alt_light.png' %}">
+        </a>
+        <a class="items" href="">
+            <img src="{% static 'img/icons/Trophy_light.png' %}">
+        </a>
+        <a class="items" href="">
+            <img src="{% static 'img/icons/Mortarboard_alt_light.png' %}">
+        </a>
+        <a class="items" href="">
+            <img src="{% static 'img/icons/Subttasks_light.png' %}">
+        </a>
+        <a class="items" href="">
+            <img src="{% static 'img/icons/image 5.png' %}">
+        </a>
+        <a class="items" href="">
+            <img src="{% static 'img/icons/Molecule_light.png' %}">
+        </a>
+    </header>
+    <div id="info-container">
+        <div style="display:flex;flex-direction: row;">
+            <div id="info">
+                <img src="{% static 'img/icons/gen av.png' %}" height="40px" alt="avatar">
+                <h1 id="hello">Hello <span style="font-weight: 600;color:#3B28CC;font-size:14p">User</span></h1>
+            </div>
+            <div id="info">
+                <img src="{% static 'img/icons/Trophy_light.png' %}" height="40px">
+                <h1 id="info-h1">Current Global Ranking: <span style="color:#3B28CC;font-weight: 700;font-size:16px">2137</span></h1>
+            </div>
+            <div id="info">
+                <img src="{% static 'img/icons 2/Fire_fill.png' %}" height="40px">
+                <h1 id="info-h1">Daily Streak: <span style="color:#3B28CC;font-weight: 700;font-size:16px">2137</span></h1>
+            </div>
+            <div id="info">
+                <img src="{% static 'img/icons/Trophy_light.png' %}" height="40px">
+                <h1 id="info-h1">Your rank: <span style="color:black;font-weight: 700;font-size:16px;background-color: #EEC643;border-radius: 20px;padding:5px">Gold</span></h1>
+            </div>
+            <div id="info">
+                <img src="{% static 'img/icons 2/Money_light.png' %}" height="40px">
+                <h1 id="info-h1">Your points: <span style="color:#3B28CC;font-weight: 700;font-size:16px;;">3221</span></h1>
+            </div>
+            <div id="info">
+                <img src="{% static 'img/icons 2/Expand_left_double_light.png' %}" height="40px">
+                <h1 id="info-h1">Points to promote <span style="color:#3B28CC;font-weight: 700;font-size:16px;;">3221</span></h1>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center;align-items: center;margin-right: 20px;">
+            <a class="sign" id="signOut" href="">Sign out</a>
+            <a href=""><img src="{% static 'img/icons/gen av.png' %}"></a>
+        </div>
+    </div>
+    <hr style="border: 1px solid grey;margin-top:5px;">
+    <h1 id="title" style="display: flex;align-items: center;">Teams <span style="color:white;background-color: black;padding:10px;border-radius: 20px;font-size:14px;margin-left:10px;">Zarz. i prog. baz danych</span></h1>
+    <div id="dashBoard">
+        <div id="message">
+            <h1 id="message-sender"><img style="padding:10px" src="{% static 'img/icons/gen av.png' %}">Tomasz Kycia - Owner</h1>
+            <p id="message-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan varius elit eget dignissim. Pellentesque pellentesque, urna sit amet finibus mattis, nulla leo hendrerit massa, a ullamcorper ante leo sed urna. Suspendisse ultricies, nisl sit amet pretium commodo, dui eros vestibulum risus, nec tristique ex dolor at ligula. Sed semper, felis eget aliquet fringilla, est libero laoreet odio, at mattis diam diam nec eros. Nam euismod augue vitae scelerisque pulvinar.</p>
+            <button id="show">Show 5 answers</button>
+            <div id="answers">
+                <div id="answer">
+                    <h1 style="font-size:12px" id="message-sender"><img style="padding:10px" src="{% static 'img/icons/gen av.png' %}">Tomasz Kycia - Owner</h1>
+                    <p id="message-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan varius elit eget dignissim. Pellentesque pellentesque, urna sit amet finibus mattis, nulla leo hendrerit massa, a ullamcorper ante leo sed urna. Suspendisse ultricies, nisl sit amet pretium commodo, dui eros vestibulum risus, nec tristique ex dolor at ligula. Sed semper, felis eget aliquet fringilla, est libero laoreet odio, at mattis diam diam nec eros. Nam euismod augue vitae scelerisque pulvinar.</p>
+                </div>
+                <div id="answer">
+                    <h1 style="font-size:12px" id="message-sender"><img style="padding:10px" src="{% static 'img/icons/gen av.png' %}">Tomasz Kycia - Owner</h1>
+                    <p id="message-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan varius elit eget dignissim. Pellentesque pellentesque, urna sit amet finibus mattis, nulla leo hendrerit massa, a ullamcorper ante leo sed urna. Suspendisse ultricies, nisl sit amet pretium commodo, dui eros vestibulum risus, nec tristique ex dolor at ligula. Sed semper, felis eget aliquet fringilla, est libero laoreet odio, at mattis diam diam nec eros. Nam euismod augue vitae scelerisque pulvinar.</p>
                 </div>
             </div>
-        {% endfor %}
-    </div>
-
-    
-    <form method="POST" id="msgForm" enctype="multipart/form-data">
-        {% csrf_token %}
-        <textarea name="msg" id="msg"></textarea> <br>
-        <input type="file" name="file" id="file"> <br>
-        <input type="submit" value="Send">
-    </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <div id="message">
 
 
-    <script>
-        var message_id = ''
-        function replyTo(msg){
-            globalThis.message_id = msg
-        }
+                {% for message in team.get_messages %}
+                    <!-- <div id="message{{message.pk}}">
+                        {{message.user}} <br>
+                        {{message.text}} <br>
+                        {{message.time_sent}} <br>
+                        {% for file in message.get_files %}
+                            <img src="{{file.doc}}" alt="not img" width="50px"> <br>
+                        {% endfor %}
+                        <br>
+                        <button onclick="replyTo('{{message.pk}}')">Reply</button>
+                        <br>
+                        
+                        <p style="margin-left: 15px;">
+                            {% for answer in message.get_answers %}
+                                {{answer.user}} <br>
+                                {{answer.text}} <br>
+                                {{answer.time_sent}} <br>
+                                {% for file in answer.get_files %}
+                                    <img src="{{file.doc}}" alt="not img" width="50px"> <br>
+                                {% endfor %} <br> <br>
+                            {% endfor %}
+                        </p>
+                        
+                        <div id="reply{{message.pk}}">
 
+                        </div>
+                    </div> --> <br>
+                    <div id="message">
+                        <h1 id="message-sender"><img style="padding:10px" src="{% static 'img/icons/gen av.png' %}">Tomasz Kycia - Owner</h1>
+                        <p id="message-text">{{message.text}}.</p>
+                        <button id="show">Show 5 answers</button>
 
-        $(document).on('submit', '#msgForm', function(e){
-            e.preventDefault()
-            var data = new FormData()
-            data.append('file', $('input[id^="file"]')[0].files[0])
-            data.append('csrfmiddlewaretoken', '{{ csrf_token }}')
-            data.append('msg', $('#msg').val())
-            data.append('messageId', message_id)
-            data.append('team_id', '{{team.pk}}')
-            $.ajax({
-                type: 'POST',
-                url: '/teams/groups/<str:team_id>/send-message/',
-                mimeType:'multipart/form-data',
-                processData: false,
-                contentType: false,
-                data: data,
-                    // csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-                success: function(data){
-                    console.log('success')
-                    if(message_id != '')
-                        $('#reply'+message_id).html($('#reply'+message_id).html() + data)
-                    else
-                        $('#messages').html($('#messages').html() + data)
-                }
-            },)
+                        {% for answer in message.get_answers %}
+                        <div id="answers">
+                            <div id="answer">
+                                <h1 style="font-size:12px" id="message-sender"><img style="padding:10px" src="{% static 'img/icons/gen av.png' %}">Tomasz Kycia - Owner</h1>
+                                <p id="message-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan varius elit eget dignissim. Pellentesque pellentesque, urna sit amet finibus mattis, nulla leo hendrerit massa, a ullamcorper ante leo sed urna. Suspendisse ultricies, nisl sit amet pretium commodo, dui eros vestibulum risus, nec tristique ex dolor at ligula. Sed semper, felis eget aliquet fringilla, est libero laoreet odio, at mattis diam diam nec eros. Nam euismod augue vitae scelerisque pulvinar.</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div> <br>
+                    <div>
+                {% endfor %}
+
             
-            $('#msgForm')[0].reset()
-        })
-    </script>
+            <form method="POST" id="msgForm" enctype="multipart/form-data">
+                {% csrf_token %}
+                <textarea name="msg" id="msg"></textarea> <br>
+                <input type="file" name="file" id="file"> <br>
+                <input type="submit" value="Send">
+            </form>
 
-{% endblock %}
+
+            <script>
+                var message_id = ''
+                function replyTo(msg){
+                    globalThis.message_id = msg
+                }
+
+
+                $(document).on('submit', '#msgForm', function(e){
+                    e.preventDefault()
+                    var data = new FormData()
+                    data.append('file', $('input[id^="file"]')[0].files[0])
+                    data.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+                    data.append('msg', $('#msg').val())
+                    data.append('messageId', message_id)
+                    data.append('team_id', '{{team.pk}}')
+                    $.ajax({
+                        type: 'POST',
+                        url: '/teams/groups/<str:team_id>/send-message/',
+                        mimeType:'multipart/form-data',
+                        processData: false,
+                        contentType: false,
+                        data: data,
+                            // csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                        success: function(data){
+                            console.log('success')
+                            if(message_id != '')
+                                $('#reply'+message_id).html($('#reply'+message_id).html() + data)
+                            else
+                                $('#messages').html($('#messages').html() + data)
+                        }
+                    },)
+                    
+                    $('#msgForm')[0].reset()
+                })
+            </script>
+
+
+        </div>
+    </div>
+</body>
+</html>
