@@ -27,9 +27,11 @@
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
+ 
     <form action="{% url 'addScore' %}" method="POST" id="scoreForm">
         {% csrf_token %}
+        <input type="hidden" id="senderID" name="das" value="2">
+        <input type="hidden" id="receiverID" name="sad" value="1">
         <input type="hidden" id="next" name="next" value="/quiz/{{quiz.pk}}/">
         <input type="hidden" id="quiz" name="quiz" value="{{quiz.pk}}">
         <input type="hidden" id="score" name="score" value="">

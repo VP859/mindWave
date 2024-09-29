@@ -79,3 +79,11 @@ class LookingRivalRequest(models.Model):
                 receiverLookingRival.addFriend(self.sender)
 
         self.save()
+
+class RivalScore(models.Model):
+    quiz = models.ForeignKey('base.Quiz', on_delete=models.CASCADE)
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='senderScore')
+    receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='receiverScore')
+
+    senderScore = models.FloatField(default=0)
+    receiverScore = models.FloatField(default=0)

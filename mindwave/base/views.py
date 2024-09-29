@@ -10,6 +10,7 @@ import random
 import os
 import google.generativeai as genai
 
+from teams.models import RivalScore
 
 
 # Create your views here.
@@ -45,11 +46,15 @@ def quizes(request):
     }
     return render(request, 'quiz/quizes.html', context)
 
-def quiz(request, pk):
+def quiz(request, pk, sender=None, receiver=None):
     quiz = Quiz.objects.get(pk=pk)
+    print(sender)
+    print(receiver)
 
     context = {
         'quiz': quiz,
+        'sender': sender,
+        'receiver': receiver,
     }
     return render(request, 'quiz/quiz.html', context)
 
@@ -72,6 +77,29 @@ def addScore(request):
     except:
         Score.objects.create(user=request.user.profile, quiz=quiz, points=score)
         request.user.profile.points += int(score)
+
+    # if sender and receiver:
+    #     try:
+    #         RivalScore.objects.create(
+    #             quiz=quiz,
+    #             sender_id=sender,
+    #             receiver_id=receiver,
+    #             senderScore=score,
+    #             receiverScore=score,
+    #         )
+    #     except:
+    #         rscore = RivalScore.objects.get(
+    #             quiz=quiz,
+    #             sender_id=sender,
+    #             receiver_id=receiver,
+    #         )
+
+    #         if rscore.senderScore:
+    #             rscore.receiverScore = score
+    #         else:
+    #             rscore.senderScore = score
+
+    #         rscore.save()
 
     return JsonResponse({})
 
