@@ -17,24 +17,29 @@ from teams.models import RivalScore
 def home(request):
     if request.user.is_authenticated:
         random.seed()
-        random_index = random.randint(0, FunFact.objects.count() - 1)
+        try:
+            random_index = random.randint(0, FunFact.objects.count() - 1)
+        except:
+            random_index = 0
+
+        try:
+            fact = FunFact.objects.all()[random_index]
+            print(fact)
         
-        fact = FunFact.objects.all()[random_index]
+            text = fact.fact
+            category = fact.category
+            
+            fun_facts = []
+            
+            fun_facts.append([text, category])
+            
+            print(fun_facts)
+            
         
-        print(fact)
-        
-        text = fact.fact
-        category = fact.category
-        
-        fun_facts = []
-        
-        fun_facts.append([text, category])
-        
-        print(fun_facts)
-        
+        except:
+            fun_facts = []
         response = generate('You are a teacher and you want to advise student on how to improve their learning skills and habits. What would you say? only plain text up to 200 chars')
-        
-        return render(request, 'homeForLogged.html', {'fun_facts': fun_facts, 'advise': response, 'user': request.user}) 
+        return render(request, 'homeForLogged.html', {'fun_facts': fun_facts, 'advise': 'response', 'user': request.user}) 
     else:
         return render(request, 'homeForLogged.html')
 
