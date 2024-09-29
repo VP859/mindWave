@@ -1,18 +1,26 @@
-{% extends "base.html" %}
-{% block title %}
-Login
-{% endblock title %}
-{% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Login</h1>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in or up</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/Logo-favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/sign-in-up.css' %}">
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="main">
+        <h1 id="signIn">Sign in</h1>
+        <form>
+            <input id="input" type="text" placeholder="Login"><br>
+            <input id="input" type="password" placeholder="Password"><br>
+            <input id="submit" type="submit" value="Log in">
+        </form>
+        <a id="register-a" href="/register/">You don't have account?</a>
     </div>
-</div>
-{% endblock content %}
+</body>
+</html>
