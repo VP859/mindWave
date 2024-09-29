@@ -133,15 +133,15 @@ def rivarly(request):
         'rivarly': sentInvitations,
         'yourRivals': yourRivals,
         'user': request.user.profile,
-        'random': random.randint(0, len(subjects)-1),
+        'random': random.randint(1, len(subjects)),
     }
     return render(request, 'teams/rivarly.html', context)
 
 def invitePeople(request, user_id):
     user = request.user.profile
-    userRival = LookingRival.objects.get(user=user)
+    # userRival = LookingRival.objects.get(user=user)
     
-    invitedUserRival = LookingRival.objects.get(user_id=user_id)
+    invitedUserRival = LookingRival.objects.get(user_id=int(user_id)+1)
 
     invitation = LookingRivalRequest.objects.create(
         sender = user,

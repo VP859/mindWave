@@ -3,12 +3,15 @@ from django.shortcuts import render
 
 from accounts.models import Profile
 from .models import Subject, Quiz, Score
+from teams.models import RivalScore
 
 
 # Create your views here.
 def home(request):
     if request.user:
         return render(request, 'homeForLogged.html')
+    else:
+        pass
 
 def quizes(request):
     subjects = Subject.objects.all()
@@ -18,11 +21,15 @@ def quizes(request):
     }
     return render(request, 'quiz/quizes.html', context)
 
-def quiz(request, pk):
+def quiz(request, pk, sender=None, receiver=None):
     quiz = Quiz.objects.get(pk=pk)
+    print(sender)
+    print(receiver)
 
     context = {
         'quiz': quiz,
+        'sender': sender,
+        'receiver': receiver,
     }
     return render(request, 'quiz/quiz.html', context)
 
@@ -45,6 +52,29 @@ def addScore(request):
     except:
         Score.objects.create(user=request.user.profile, quiz=quiz, points=score)
         request.user.profile.points += int(score)
+
+    # if sender and receiver:
+    #     try:
+    #         RivalScore.objects.create(
+    #             quiz=quiz,
+    #             sender_id=sender,
+    #             receiver_id=receiver,
+    #             senderScore=score,
+    #             receiverScore=score,
+    #         )
+    #     except:
+    #         rscore = RivalScore.objects.get(
+    #             quiz=quiz,
+    #             sender_id=sender,
+    #             receiver_id=receiver,
+    #         )
+
+    #         if rscore.senderScore:
+    #             rscore.receiverScore = score
+    #         else:
+    #             rscore.senderScore = score
+
+    #         rscore.save()
 
     return JsonResponse({})
 

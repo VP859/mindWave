@@ -9,11 +9,12 @@
     <hr>
     Invite: <br>    
     {% for user in users %}
-    <a href="/teams/rivarly/invite/{{user.pk}}/">{{user.user}}</a> <br>
+        <a href="/teams/rivarly/invite/{{user.pk}}/">{{user.user}}</a> <br>
     {% endfor %}
     <hr>
     
-    Pojedynek: <br>
+    Pojedynek: <br> <br>
+    User: <br>
     {{user}} <br> <br>
     {% for rival in yourRivals %}
         Rivals: <br>
