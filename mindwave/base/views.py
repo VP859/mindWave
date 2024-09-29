@@ -2,13 +2,33 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from accounts.models import Profile
-from .models import Subject, Quiz, Score
+from .models import Subject, Quiz, Score, FunFact
+
+import random
 
 
 # Create your views here.
 def home(request):
-    if request.user:
-        return render(request, 'homeForLogged.html')
+    if request.user.is_authenticated:
+        random.seed()
+        random_index = random.randint(0, FunFact.objects.count() - 1)
+        
+        fact = FunFact.objects.all()[random_index]
+        
+        print(fact)
+        
+        text = fact.fact
+        category = fact.category
+        
+        fun_facts = []
+        
+        fun_facts.append([text, category])
+        
+        print(fun_facts)
+        
+        return render(request, 'homeForLogged.html', {'fun_facts': fun_facts})
+    else:
+        return render(request, 'home.html')
 
 def quizes(request):
     subjects = Subject.objects.all()

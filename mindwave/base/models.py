@@ -121,3 +121,11 @@ class Category(models.Model):
     
     def __str__(self) -> str:
         return self.name
+    
+    
+class FunFact(models.Model):
+    fact = models.CharField(max_length=200)
+    category = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    
+    def __str__(self) -> str:
+        return self.fact
